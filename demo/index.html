@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopDemo — Test Tracking Page</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; color: #1a1a2e; }
+
+    /* Tracker Badge */
+    .tracker-badge {
+      position: fixed; bottom: 16px; right: 16px; background: #10b981; color: #fff;
+      padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      z-index: 9999; animation: pulse 2s infinite; box-shadow: 0 2px 12px rgba(16,185,129,0.4);
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+    /* Nav */
+    nav {
+      background: #1a1a2e; padding: 16px 40px; display: flex;
+      justify-content: space-between; align-items: center;
+    }
+    nav .logo { color: #fff; font-size: 22px; font-weight: 700; }
+    nav .logo span { color: #6c63ff; }
+    nav ul { list-style: none; display: flex; gap: 24px; }
+    nav a { color: #ccc; text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    nav a:hover { color: #fff; }
+    nav .cta-btn {
+      background: #6c63ff; color: #fff; padding: 8px 20px; border-radius: 8px;
+      font-weight: 600; transition: background 0.2s;
+    }
+    nav .cta-btn:hover { background: #5a52d5; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 80px 40px; text-align: center; color: #fff;
+    }
+    .hero h1 { font-size: 48px; margin-bottom: 16px; }
+    .hero h1 span { color: #6c63ff; }
+    .hero p { font-size: 18px; color: #a0a0b0; max-width: 600px; margin: 0 auto 32px; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; }
+    .hero-btns button {
+      padding: 14px 32px; border: none; border-radius: 10px; font-size: 16px;
+      font-weight: 600; cursor: pointer; transition: transform 0.15s;
+    }
+    .hero-btns button:hover { transform: translateY(-2px); }
+    .btn-primary { background: #6c63ff; color: #fff; }
+    .btn-secondary { background: transparent; color: #fff; border: 2px solid #6c63ff !important; }
+
+    /* Products */
+    .products { padding: 60px 40px; max-width: 1200px; margin: 0 auto; }
+    .products h2 { font-size: 32px; margin-bottom: 8px; }
+    .products .subtitle { color: #666; margin-bottom: 40px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .card {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+    .card-img {
+      height: 200px; display: flex; align-items: center; justify-content: center;
+      font-size: 64px;
+    }
+    .card-body { padding: 20px; }
+    .card-body h3 { font-size: 18px; margin-bottom: 4px; }
+    .card-body .price { color: #6c63ff; font-weight: 700; font-size: 20px; margin: 8px 0; }
+    .card-body .rating { color: #f59e0b; font-size: 14px; margin-bottom: 12px; }
+    .card-body button {
+      width: 100%; padding: 10px; background: #1a1a2e; color: #fff; border: none;
+      border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+    }
+    .card-body button:hover { background: #6c63ff; }
+
+    /* Newsletter */
+    .newsletter {
+      background: #1a1a2e; padding: 60px 40px; text-align: center; color: #fff;
+    }
+    .newsletter h2 { font-size: 28px; margin-bottom: 8px; }
+    .newsletter p { color: #a0a0b0; margin-bottom: 24px; }
+    .newsletter-form { display: flex; gap: 12px; justify-content: center; max-width: 500px; margin: 0 auto; }
+    .newsletter-form input {
+      flex: 1; padding: 12px 16px; border: 2px solid #333; background: #16213e;
+      color: #fff; border-radius: 8px; font-size: 14px; outline: none;
+    }
+    .newsletter-form input::placeholder { color: #666; }
+    .newsletter-form button {
+      padding: 12px 24px; background: #6c63ff; color: #fff; border: none;
+      border-radius: 8px; font-weight: 600; cursor: pointer;
+    }
+
+    /* Footer */
+    footer { background: #0f0f1e; padding: 24px 40px; text-align: center; }
+    footer a { color: #6c63ff; text-decoration: none; margin: 0 12px; font-size: 14px; }
+    footer p { color: #555; font-size: 12px; margin-top: 12px; }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 28px; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      nav { padding: 12px 20px; }
+      nav ul { display: none; }
+      .products { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="tracker-badge">🟢 Tracker Active</div>
+
+  <nav>
+    <div class="logo">Shop<span>Demo</span></div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <a href="#" class="cta-btn">Sign In</a>
+  </nav>
+
+  <section class="hero">
+    <h1>Discover <span>Amazing</span> Products</h1>
+    <p>This is a demo e-commerce page used to test the CausalFunnel analytics tracker. Click around to generate events!</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="alert('🛍️ Shop click tracked!')">Shop Now</button>
+      <button class="btn-secondary" onclick="alert('📖 Learn more click tracked!')">Learn More</button>
+    </div>
+  </section>
+
+  <section class="products">
+    <h2>Featured Products</h2>
+    <p class="subtitle">Click on any product to generate tracking events</p>
+    <div class="grid" id="product-grid"></div>
+  </section>
+
+  <section class="newsletter">
+    <h2>Stay Updated</h2>
+    <p>Subscribe to our newsletter for the latest deals</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Enter your email" />
+      <button onclick="alert('📧 Subscribe click tracked!')">Subscribe</button>
+    </div>
+  </section>
+
+  <footer>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms</a>
+    <a href="#">Support</a>
+    <p>&copy; 2026 ShopDemo. This is a test page for CausalFunnel analytics.</p>
+  </footer>
+
+  <script>
+    // Generate product cards dynamically
+    const products = [
+      { name: "Wireless Headphones", price: "$129.99", rating: "★★★★★", emoji: "🎧", bg: "#eef2ff" },
+      { name: "Smart Watch Pro", price: "$249.99", rating: "★★★★☆", emoji: "⌚", bg: "#fef3c7" },
+      { name: "Laptop Stand", price: "$49.99", rating: "★★★★★", emoji: "💻", bg: "#ecfdf5" },
+      { name: "USB-C Hub", price: "$39.99", rating: "★★★★☆", emoji: "🔌", bg: "#fce7f3" },
+      { name: "Mechanical Keyboard", price: "$89.99", rating: "★★★★★", emoji: "⌨️", bg: "#f0f9ff" },
+      { name: "Webcam HD", price: "$69.99", rating: "★★★☆☆", emoji: "📷", bg: "#faf5ff" },
+    ];
+
+    const grid = document.getElementById("product-grid");
+    products.forEach(p => {
+      grid.innerHTML += `
+        <div class="card">
+          <div class="card-img" style="background:${p.bg}">${p.emoji}</div>
+          <div class="card-body">
+            <h3>${p.name}</h3>
+            <div class="rating">${p.rating}</div>
+            <div class="price">${p.price}</div>
+            <button onclick="alert('🛒 Added ${p.name} to cart!')">Add to Cart</button>
+          </div>
+        </div>
+      `;
+    });
+  </script>
+
+  <!-- CausalFunnel Tracker -->
+  <script src="tracker.js" data-api="http://localhost:5000/api/events"></script>
+</body>
+</html>

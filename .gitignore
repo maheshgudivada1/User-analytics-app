@@ -1,0 +1,17 @@
+.env
+/env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+ENV/
+venv/
+env.bak/
+venv.bak/
+node_modules/
+dist/
+build/
+*.log
